@@ -1,10 +1,9 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0
-LABEL author=khaja
-RUN useradd -d /pavan --shell /bin/bash pavan
-USER pavan
-WORKDIR /pavan
-COPY --chown=pavan:pavan nopCommerce /nopCommerce
-ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
-EXPOSE 5000
-WORKDIR /nopCommerce
-CMD ["dotnet", "Nop.Web.dll"]
+FROM amazoncorretto:11-alpine3.17
+LABEL author="pavan"
+LABEL organisation="learningthoughts"
+RUN adduser -h /petclinic -s /bin/sh -D petclinic
+USER petclinic
+WORKDIR petclinic
+ADD --chown=petclinic:petclinic https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar spring-petclinic-2.4.2.jar
+EXPOSE 8080
+CMD  ["java", "-jar", "spring-petclinic-2.4.2.jar"]
